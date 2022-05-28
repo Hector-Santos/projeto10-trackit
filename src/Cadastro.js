@@ -14,10 +14,14 @@ export default function Cadastro(){
     const [url, setUrl] = useState("")
     const [disabled, setDisabled] = useState(false)
     const [botao, setBotao] = useState("Cadastrar")
+    const [colorButton, setColorButton] = useState("#52B6FF");
+    const [colorInput, setColorInput] = useState("black");
     const navigate = useNavigate();
 
     function fazerCadastro(event) {
         setDisabled(true)
+        setColorButton("#86CBFD")
+        setColorInput("#AFAFAF")
         setBotao(<ThreeDots color="white" height={80} width={80} />)
         event.preventDefault()
         let body = 
@@ -34,11 +38,22 @@ export default function Cadastro(){
         promise.then((response => {    
             console.log(response)
             navigate("/")
-          }))}
-          const colorDisabled = "#AFAFAF"
-          const colorEnabled = "black"
+          }))
+        
+          promise.catch((response => {
+            alert(`Algo de errado não está certo
+  ${response}`)
+            setColorButton("#52B6FF")
+            setColorInput("black")
+            setDisabled(false)
+            setBotao("Login")
+            }
+            ))
+          
+        
+        }
     return (
-        <Container disabled={disabled} colorDisabled={colorDisabled} colorEnabled = {colorEnabled}>
+        <Container disabled={disabled} colorButton={colorButton} colorInput = {colorInput}>
         <img src="/images/logo.png"></img>
         <h1>TrackIt</h1>
         <Form>

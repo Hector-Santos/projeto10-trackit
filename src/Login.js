@@ -13,16 +13,19 @@ export default function Login(){
     const [email, setEmail] = useState("");
 	const [senha, setSenha] = useState("");
     const [disabled, setDisabled] = useState(false)
-    const [botao, setBotao] = useState("Login")
-    const navigate = useNavigate();
     const {token, setToken, setUrl} = useContext(TokenContext)
-     
-
+    const [botao, setBotao] = useState("Login")
+    const [colorButton, setColorButton] = useState("#52B6FF");
+    const [colorInput, setColorInput] = useState("black");
+    const navigate = useNavigate();
    
     function fazerLogin(event) {
         event.preventDefault()
         setDisabled(true)
+        setColorButton("#86CBFD")
+        setColorInput("#AFAFAF")
         setBotao(<ThreeDots color="white" height={80} width={80} />)
+        
         let body = {
             email:email,
             password:senha
@@ -34,22 +37,31 @@ export default function Login(){
             navigate("/habitos")
             
           }))
+
+          promise.catch((response => {
+          alert(`Falha no login.Verifique seu usario e senha
+${response}`)
+          setColorButton("#52B6FF")
+          setColorInput("black")
+          setDisabled(false)
+          setBotao("Login")
+          }
+          ))
           
 
     }
     console.log(token)
-    const colorDisabled = "#AFAFAF"
-    const colorEnabled = "black"
+    
     return (
         
-        <Container disabled={disabled} colorDisabled={colorDisabled} colorEnabled = {colorEnabled}>
+        <Container disabled={disabled} colorInput= {colorInput} colorButton={colorButton}>
         <img src="/images/logo.png"></img>
         <h1>TrackIt</h1>
         <Form >
         <form onSubmit={fazerLogin}>
             <input  disabled ={disabled} placeholder = "email" type= "email" value={email} onChange={e => setEmail(e.target.value)} />
             <input disabled ={disabled} placeholder = "senha" type="password"value={senha} onChange={e => setSenha(e.target.value)}/>
-            <button type="submit">{botao}</button>
+            <button disabled = {disabled} type="submit">{botao}</button>
         </form>
         </Form>
         <Link to = "/cadastro">
@@ -80,7 +92,7 @@ height: 45px;
 width: 303px;
 border-radius: 5px;
 margin-bottom: 10px;
-color : ${props => props.disabled? props.colorDisabled : props.colorEnabled };
+color : ${props => props.colorInput };
 border: 1px solid #D4D4D4;
 font-size: 20px;
 ::placeholder{
@@ -97,7 +109,8 @@ height: 45px;
 width: 310px;
 border-radius: 5px;
 color: white;
-background-color: #52B6FF;
+background-color: ${props => props.colorButton} ;
+border: none;
 font-family: 'Lexend Deca', sans-serif;
 font-size: 20px;
 }
