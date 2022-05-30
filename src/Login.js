@@ -50,7 +50,7 @@ ${response}`)
           
 
     }
-    console.log(token)
+    
     
     return (
         
@@ -89,9 +89,9 @@ img{
 }
 input{
 height: 45px;
-width: 303px;
 border-radius: 5px;
 margin-bottom: 10px;
+width: 305px;
 color : ${props => props.colorInput };
 border: 1px solid #D4D4D4;
 font-size: 20px;

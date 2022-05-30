@@ -10,7 +10,7 @@ import TokenContext from './contexts/TokenContext'
 
 export default function Tela(){
    const [token, setToken] = useState("");
-   const [percentage, setPercentage] = useState("0");
+   const [percentage, setPercentage] = useState(0);
    const [url, setUrl] = useState("")
       
   
